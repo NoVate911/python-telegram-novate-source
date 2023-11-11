@@ -14,5 +14,12 @@ class RequestStates(StatesGroup):
     INSERT_MESSAGE: Final = State()
 
 class AdministratorStates(StatesGroup):
+    MAIN: Final = State()
     SET_INSERT_TELEGRAM_ID: Final = State()
     UNSET_INSERT_TELEGRAM_ID: Final = State()
+
+class ChannelStates(StatesGroup):
+    MAIN: Final = State()
+    ADD_INSERT_TELEGRAM_ID: Final = State()
+    REMOVE_INSERT_TELEGRAM_ID: Final = State()
+    CHANGE_NEED_SUBSCRIBED_INSERT_TELEGRAM_ID: Final = State()

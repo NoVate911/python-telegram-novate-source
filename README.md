@@ -58,7 +58,10 @@
     - [x] Administration Management
       - [x] Addendum
       - [x] Removal
-    - [ ] Adding channels for mandatory subscription
+    - [x] Subscription Channels
+      - [x] Addendum
+      - [x] Removal
+      - [x] Changing subscriptions
 
   ---
 
@@ -156,7 +159,10 @@
     - [x] Управление Администрацией
       - [x] Добавление
       - [x] Удаление
-    - [ ] Добавление каналов для обязательной подписки
+    - [x] Каналы для подписки
+      - [x] Добавление
+      - [x] Удаление
+      - [x] Смена подписки
 
   ---
 

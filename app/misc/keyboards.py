@@ -31,9 +31,8 @@ async def admin(msg: Message) -> ReplyKeyboardBuilder:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     kb: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
     kb.add(
-        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['administrator']['set']),
-        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['administrator']['unset']),
-        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['administrator']['list']),
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['administrator']['main']),
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['channel']['main']),
     )
     return kb
 
@@ -64,6 +63,31 @@ async def request(msg: Message) -> ReplyKeyboardBuilder:
     kb.add(
         KeyboardButton(text=translations[user_language]['keyboards']['reply']['user']['request']['create']),
         KeyboardButton(text=translations[user_language]['keyboards']['reply']['user']['request']['back']),
+    )
+    kb.adjust(1)
+    return kb.as_markup(resize_keyboard=True, input_field_placeholder=translations[user_language]['keyboards']['reply']['title'])
+
+async def administrator(msg: Message) -> ReplyKeyboardBuilder:
+    user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
+    kb: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+    kb.add(
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['administrator']['set']),
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['administrator']['unset']),
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['administrator']['list']),
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['administrator']['back']),
+    )
+    kb.adjust(1)
+    return kb.as_markup(resize_keyboard=True, input_field_placeholder=translations[user_language]['keyboards']['reply']['title'])
+
+async def channel(msg: Message) -> ReplyKeyboardBuilder:
+    user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
+    kb: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+    kb.add(
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['channel']['add']),
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['channel']['remove']),
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['channel']['change_need_subscribed']),
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['channel']['list']),
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['admin']['channel']['back']),
     )
     kb.adjust(1)
     return kb.as_markup(resize_keyboard=True, input_field_placeholder=translations[user_language]['keyboards']['reply']['title'])
