@@ -46,14 +46,14 @@
     - [x] Checking for subscriptions to certain channels
     - [x] Checking for a referral
   - [x] Referral system
-    - [ ] Statistics
+    - [x] Statistics
   - [x] Help section
     - [x] Information about the bot
     - [x] Rules for using the bot
   - [ ] Donations
     - [ ] Statistics
-  - [ ] Technical support
-    - [ ] Sending an application
+  - [x] Technical support
+    - [x] Sending a request
   - [ ] Section for Administration
     - [ ] Viewing statistics among registered users
     - [ ] Adding channels for mandatory subscription
@@ -142,14 +142,14 @@
     - [x] Проверка на оформление подписки на определённые каналы
     - [x] Проверка на реферала
   - [x] Реферальная система
-    - [ ] Статистика
+    - [x] Статистика
   - [x] Раздел помощи
     - [x] Информация о боте
     - [x] Правила пользования ботом
   - [ ] Пожертвования
     - [ ] Статистика
-  - [ ] Техническая поддержка
-    - [ ] Отправка заявки
+  - [x] Техническая поддержка
+    - [x] Отправка запроса
   - [ ] Раздел для Администрации
     - [ ] Просмотр статистики среди зарегистрированных пользователей
     - [ ] Добавление каналов для обязательной подписки

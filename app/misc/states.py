@@ -8,3 +8,7 @@ class HelpStates(StatesGroup):
 
 class ReferralStates(StatesGroup):
     MAIN: Final = State()
+
+class RequestStates(StatesGroup):
+    MAIN: Final = State()
+    INSERT_MESSAGE: Final = State()
