@@ -3,7 +3,7 @@ from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 from aiogram.filters import StateFilter, Command
 
-from app.misc.filters import IsSubscribedToChannels, IsRegistered
+from app.misc.filters import IsSubscribedToChannels, IsRegistered, NotAdministrator
 from app.misc.keyboards import main as main_kb, request as request_kb
 from app.misc.states import RequestStates
 from app.misc.translations import languages, translations, user_language as get_user_language
@@ -12,27 +12,27 @@ from app.misc.translations import languages, translations, user_language as get_
 router: Router = Router()
 
 
-@router.message(StateFilter(RequestStates.INSERT_MESSAGE), IsSubscribedToChannels(), IsRegistered(), Command(commands=['cancel']))
+@router.message(StateFilter(RequestStates.INSERT_MESSAGE), IsSubscribedToChannels(), IsRegistered(), NotAdministrator(), Command(commands=['cancel']))
 async def cmd_request_cancel(msg: Message, state: FSMContext) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     await state.set_state(state=RequestStates.MAIN)
     await msg.reply(text=translations[user_language]['messages']['user']['request']['create']['cancel'], reply_markup=await request_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(None), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['request']['main'].lower())
+    @router.message(StateFilter(None), IsSubscribedToChannels(), IsRegistered(), NotAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['user']['request']['main'].lower())
     async def cmd_request(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.set_state(state=RequestStates.MAIN)
         await msg.reply(text=translations[user_language]['messages']['user']['request']['main'], reply_markup=await request_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(RequestStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['request']['create'].lower())
+    @router.message(StateFilter(RequestStates.MAIN), IsSubscribedToChannels(), IsRegistered(), NotAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['user']['request']['create'].lower())
     async def cmd_request_create_insert_message(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.set_state(state=RequestStates.INSERT_MESSAGE)
         await msg.reply(text=translations[user_language]['messages']['user']['request']['create']['message'], reply_markup=ReplyKeyboardRemove())
 
-@router.message(StateFilter(RequestStates.INSERT_MESSAGE), IsSubscribedToChannels(), IsRegistered())
+@router.message(StateFilter(RequestStates.INSERT_MESSAGE), IsSubscribedToChannels(), IsRegistered(), NotAdministrator())
 async def cmd_request_create(msg: Message, state: FSMContext) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     min_length: int = 32
@@ -44,7 +44,7 @@ async def cmd_request_create(msg: Message, state: FSMContext) -> None:
     await msg.reply(text=translations[user_language]['messages']['user']['request']['create']['success'], reply_markup=await request_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(RequestStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['request']['back'].lower())
+    @router.message(StateFilter(RequestStates.MAIN), IsSubscribedToChannels(), IsRegistered(), NotAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['user']['request']['back'].lower())
     async def cmd_request_exit(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.clear()

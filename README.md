@@ -54,8 +54,10 @@
     - [ ] Statistics
   - [x] Technical support
     - [x] Sending a request
-  - [ ] Section for Administration
-    - [ ] Viewing statistics among registered users
+  - [x] Section for Administration
+    - [x] Administration Management
+      - [x] Addendum
+      - [x] Removal
     - [ ] Adding channels for mandatory subscription
 
   ---
@@ -150,8 +152,10 @@
     - [ ] Статистика
   - [x] Техническая поддержка
     - [x] Отправка запроса
-  - [ ] Раздел для Администрации
-    - [ ] Просмотр статистики среди зарегистрированных пользователей
+  - [x] Раздел для Администрации
+    - [x] Управление Администрацией
+      - [x] Добавление
+      - [x] Удаление
     - [ ] Добавление каналов для обязательной подписки
 
   ---

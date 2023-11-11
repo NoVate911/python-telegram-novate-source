@@ -5,6 +5,11 @@ from app.database.init import async_session
 from app.database.models import User, Channel
 
 
+async def user_all_telegram_id() -> list[tuple[int]]:
+    async with async_session() as session:
+        result: list[tuple[int]] = await session.execute(select(User.telegram_id))
+        return result.scalars().all()
+
 async def user_by_telegram_id(telegram_id: int) -> User | None:
     async with async_session() as session:
         try:
@@ -34,6 +39,14 @@ async def user_all_telegram_id_by_referral_id(referral_id: int) -> list[tuple[in
         try:
             result: list[tuple[int]] = await session.execute(select(User.telegram_id).where(User.referral_id == referral_id))
             return result.scalars().all()
+        except NoResultFound:
+            return None
+        
+async def user_administrator_by_telegram_id(telegram_id: int) -> bool | None:
+    async with async_session() as session:
+        try:
+            result: bool = await session.execute(select(User.administrator).where(User.telegram_id == telegram_id))
+            return result.scalars().first()
         except NoResultFound:
             return None
 

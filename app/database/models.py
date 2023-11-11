@@ -16,6 +16,7 @@ class User(Base):
     telegram_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
     referral_id: Mapped[int] = mapped_column(BigInteger, nullable=False, default=OWNER_TELEGRAM_ID)
     language_code: Mapped[str] = mapped_column(String(3), nullable=False, default='ru')
+    administrator: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
 class Channel(Base):
     __tablename__ = 'channels'

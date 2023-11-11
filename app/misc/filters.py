@@ -3,7 +3,7 @@ import logging
 from aiogram.types import Message
 from aiogram.filters import Filter
 
-from app.database.requests.select import user_by_telegram_id as select_user_by_telegram_id, channel_all_channel_name_by_need_subscribed as select_channel_all_channel_name_by_need_subscribed
+from app.database.requests.select import user_by_telegram_id as select_user_by_telegram_id, channel_all_channel_name_by_need_subscribed as select_channel_all_channel_name_by_need_subscribed, user_administrator_by_telegram_id as select_user_administrator_by_telegram_id
 
 
 class IsRegistered(Filter):
@@ -22,6 +22,10 @@ class IsSubscribedToChannels(Filter):
                 logging.error(ex)
         return True if user_subscribed_to_channels >= len(await select_channel_all_channel_name_by_need_subscribed(need_subscribed=True)) else False
     
+class IsAdministrator(Filter):
+    async def __call__(self, msg: Message):
+        return await select_user_administrator_by_telegram_id(telegram_id=msg.from_user.id)
+
 class NotRegistered(Filter):
     async def __call__(self, msg: Message):
         return False if await select_user_by_telegram_id(telegram_id=msg.from_user.id) else True
@@ -37,3 +41,7 @@ class NotSubscribedToChannels(Filter):
             except Exception as ex:
                 logging.error(ex)
         return False if user_subscribed_to_channels >= len(await select_channel_all_channel_name_by_need_subscribed(need_subscribed=True)) else True
+    
+class NotAdministrator(Filter):
+    async def __call__(self, msg: Message):
+        return True if not await select_user_administrator_by_telegram_id(telegram_id=msg.from_user.id) else False

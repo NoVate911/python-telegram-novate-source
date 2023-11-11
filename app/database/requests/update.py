@@ -23,3 +23,13 @@ async def user_referral_id_by_telegram_id(telegram_id: int, referral_id: int) ->
         except Exception:
             await session.rollback()
             return False
+        
+async def user_administrator_by_telegram_id(telegram_id: int, administrator: bool) -> bool:
+    async with async_session() as session:
+        try:
+            await session.execute(update(User).where(User.telegram_id  == telegram_id).values({User.administrator: administrator}))
+            await session.commit()
+            return True
+        except Exception:
+            await session.rollback()
+            return False

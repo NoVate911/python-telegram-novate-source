@@ -12,3 +12,7 @@ class ReferralStates(StatesGroup):
 class RequestStates(StatesGroup):
     MAIN: Final = State()
     INSERT_MESSAGE: Final = State()
+
+class AdministratorStates(StatesGroup):
+    SET_INSERT_TELEGRAM_ID: Final = State()
+    UNSET_INSERT_TELEGRAM_ID: Final = State()
