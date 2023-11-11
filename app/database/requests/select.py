@@ -12,7 +12,7 @@ async def user_by_telegram_id(telegram_id: int) -> User | None:
             return result.scalars().first()
         except NoResultFound:
             return None
-        
+
 async def user_language_code_by_telegram_id(telegram_id: int) -> str | None:
     async with async_session() as session:
         try:
@@ -20,7 +20,23 @@ async def user_language_code_by_telegram_id(telegram_id: int) -> str | None:
             return result.scalars().first()
         except NoResultFound:
             return None
-        
+
+async def user_referral_id_by_telegram_id(telegram_id: int) -> int | None:
+    async with async_session() as session:
+        try:
+            result: int = await session.execute(select(User.referral_id).where(User.telegram_id == telegram_id))
+            return result.scalars().first()
+        except NoResultFound:
+            return None
+
+async def user_all_telegram_id_by_referral_id(referral_id: int) -> list[tuple[int]] | None:
+    async with async_session() as session:
+        try:
+            result: list[tuple[int]] = await session.execute(select(User.telegram_id).where(User.referral_id == referral_id))
+            return result.scalars().all()
+        except NoResultFound:
+            return None
+
 async def channel_all_channel_name_by_need_subscribed(need_subscribed: bool) -> str | None:
     async with async_session() as session:
         try:

@@ -21,19 +21,19 @@ for language in languages:
 
 for language in languages:
     @router.message(StateFilter(HelpStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['help']['information_bot'].lower())
-    async def cmd_help(msg: Message) -> None:
+    async def cmd_help_information_bot(msg: Message) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await msg.reply(text=translations[user_language]['messages']['user']['help']['information_bot'], reply_markup=await help_kb(msg=msg))
 
 for language in languages:
     @router.message(StateFilter(HelpStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['help']['rules_use_bot'].lower())
-    async def cmd_help(msg: Message) -> None:
+    async def cmd_help_rules_use_bot(msg: Message) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await msg.reply(text=translations[user_language]['messages']['user']['help']['rules_use_bot'], reply_markup=await help_kb(msg=msg))
 
 for language in languages:
     @router.message(StateFilter(HelpStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['help']['back'].lower())
-    async def cmd_help(msg: Message, state: FSMContext) -> None:
+    async def cmd_help_back(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.clear()
         await msg.reply(text=translations[user_language]['messages']['user']['help']['back'], reply_markup=await main_kb(msg=msg))

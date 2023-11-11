@@ -3,6 +3,7 @@ from aiogram.types import Message
 
 from app.database.requests.select import channel_all_channel_name_by_need_subscribed as select_channel_all_channel_name_by_need_subscribed
 from app.misc.filters import IsRegistered, NotRegistered, IsSubscribedToChannels, NotSubscribedToChannels
+from app.misc.keyboards import main as main_kb
 from app.misc.translations import translations, user_language as get_user_language
 
 
@@ -27,4 +28,4 @@ async def cmd_need_registered(msg: Message) -> None:
 @router.message(IsSubscribedToChannels(), IsRegistered())
 async def cmd_unknown(msg: Message) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
-    await msg.reply(text=translations[user_language]['messages']['unknown'])
+    await msg.reply(text=translations[user_language]['messages']['unknown'], reply_markup=await main_kb(msg=msg))

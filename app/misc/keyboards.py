@@ -16,6 +16,7 @@ async def user(msg: Message) -> ReplyKeyboardBuilder:
     kb: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
     kb.add(
         KeyboardButton(text=translations[user_language]['keyboards']['reply']['user']['help']['main']),
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['user']['referral']['main']),
     )
     return kb
 
@@ -31,6 +32,16 @@ async def help(msg: Message) -> ReplyKeyboardBuilder:
         KeyboardButton(text=translations[user_language]['keyboards']['reply']['user']['help']['information_bot']),
         KeyboardButton(text=translations[user_language]['keyboards']['reply']['user']['help']['rules_use_bot']),
         KeyboardButton(text=translations[user_language]['keyboards']['reply']['user']['help']['back']),
+    )
+    kb.adjust(1)
+    return kb.as_markup(resize_keyboard=True, input_field_placeholder=translations[user_language]['keyboards']['reply']['title'])
+
+async def referral(msg: Message) -> ReplyKeyboardBuilder:
+    user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
+    kb: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+    kb.add(
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['user']['referral']['personal_statistics']),
+        KeyboardButton(text=translations[user_language]['keyboards']['reply']['user']['referral']['back']),
     )
     kb.adjust(1)
     return kb.as_markup(resize_keyboard=True, input_field_placeholder=translations[user_language]['keyboards']['reply']['title'])
