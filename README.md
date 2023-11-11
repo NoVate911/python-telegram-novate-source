@@ -42,23 +42,23 @@
   Progress of the work done, which is updated as development progresses.
   Edits and updates in systems are possible!
 
-  - [ ] Registration (/start)
-  - [ ] Checking for subscriptions to certain channels
-  - [ ] Checking for a referral
-  - [ ] Referral system
-  - [ ] Statistics
-  - [ ] Tops
+  - [x] Registration (/start)
+    - [x] Checking for subscriptions to certain channels
+    - [x] Checking for a referral
+  - [x] Referral system
+    - [ ] Statistics
+    - [ ] Tops
   - [ ] Help section
-  - [ ] Information about the bot
-  - [ ] Rules for using the bot
+    - [ ] Information about the bot
+    - [ ] Rules for using the bot
   - [ ] Donations
-  - [ ] Statistics
-  - [ ] Tops
+    - [ ] Statistics
+    - [ ] Tops
   - [ ] Technical support
-  - [ ] Sending an application
+    - [ ] Sending an application
   - [ ] Section for Administration
-  - [ ] Viewing statistics among registered users
-  - [ ] Adding channels for mandatory subscription
+    - [ ] Viewing statistics among registered users
+    - [ ] Adding channels for mandatory subscription
 
   ---
 
@@ -140,10 +140,10 @@
   Прогресс проделанной работы, которая обновляется по мере разработки.
   Возможны правки и обновления в системах!
 
-  - [ ] Регистрация (/start)
-    - [ ] Проверка на оформление подписки на определённые каналы
-    - [ ] Проверка на реферала
-  - [ ] Реферальная система
+  - [x] Регистрация (/start)
+    - [x] Проверка на оформление подписки на определённые каналы
+    - [x] Проверка на реферала
+  - [x] Реферальная система
     - [ ] Статистика
     - [ ] Топы
   - [ ] Раздел помощи
