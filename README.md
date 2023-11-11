@@ -86,13 +86,13 @@
   <sup>Via Terminal or PowerShell</sup>
 
   ```
-  git clone https://github.com/NoVate911/python-telegram-novatesource.git
+  git clone https://github.com/NoVate911/python-telegram-novate-source.git
   ```
 
   <br/>
 
   ```
-  cd python-telegram-novatesource
+  cd python-telegram-novate-source
   ```
 
   <br/>
@@ -184,13 +184,13 @@
   <sup>Через Terminal или PowerShell</sup>
 
   ```
-  git clone https://github.com/NoVate911/python-telegram-novatesource.git
+  git clone https://github.com/NoVate911/python-telegram-novate-source.git
   ```
 
   <br/>
 
   ```
-  cd python-telegram-novatesource
+  cd python-telegram-novate-source
   ```
 
   <br/>
