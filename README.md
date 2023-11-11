@@ -48,9 +48,9 @@
   - [x] Referral system
     - [ ] Statistics
     - [ ] Tops
-  - [ ] Help section
-    - [ ] Information about the bot
-    - [ ] Rules for using the bot
+  - [x] Help section
+    - [x] Information about the bot
+    - [x] Rules for using the bot
   - [ ] Donations
     - [ ] Statistics
     - [ ] Tops
@@ -146,9 +146,9 @@
   - [x] Реферальная система
     - [ ] Статистика
     - [ ] Топы
-  - [ ] Раздел помощи
-    - [ ] Информация о боте
-    - [ ] Правила пользования ботом
+  - [x] Раздел помощи
+    - [x] Информация о боте
+    - [x] Правила пользования ботом
   - [ ] Пожертвования
     - [ ] Статистика
     - [ ] Топы
