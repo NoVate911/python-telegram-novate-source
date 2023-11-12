@@ -1,4 +1,4 @@
 @echo off
 title dev: t.me/novatesource
 
-pip install -y -r requirements.txt
+pip install -r requirements.txt
