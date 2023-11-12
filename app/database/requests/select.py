@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.exc import NoResultFound
 
 from app.database.init import async_session
-from app.database.models import User, Channel
+from app.database.models import User, Channel, Donate
 
 
 async def user_all_telegram_id() -> list[tuple[int]]:
@@ -78,6 +78,46 @@ async def channel_need_subscribed_by_channel_name(channel_name: str) -> bool | N
     async with async_session() as session:
         try:
             result: bool = await session.execute(select(Channel.need_subscribed).where(Channel.channel_name == channel_name))
+            return result.scalars().first()
+        except NoResultFound:
+            return None
+
+async def donate_all_identificator() -> list[tuple[str]] | None:
+    async with async_session() as session:
+        try:
+            result: list[tuple[str]] = await session.execute(select(Donate.identificator))
+            return result.scalars().all()
+        except NoResultFound:
+            return None
+        
+async def donate_id_by_identificator(identificator: str) -> int | None:
+    async with async_session() as session:
+        try:
+            result: int = await session.execute(select(Donate.id).where(Donate.identificator == identificator))
+            return result.scalars().first()
+        except NoResultFound:
+            return None
+
+async def donate_telegram_id_by_identificator(identificator: str) -> int | None:
+    async with async_session() as session:
+        try:
+            result: int = await session.execute(select(Donate.telegram_id).where(Donate.identificator == identificator))
+            return result.scalars().first()
+        except NoResultFound:
+            return None
+
+async def donate_sum_by_identificator(identificator: str) -> int | None:
+    async with async_session() as session:
+        try:
+            result: int = await session.execute(select(Donate.sum).where(Donate.identificator == identificator))
+            return result.scalars().first()
+        except NoResultFound:
+            return None
+
+async def donate_status_by_identificator(identificator: int) -> bool | None:
+    async with async_session() as session:
+        try:
+            result: bool = await session.execute(select(Donate.status).where(Donate.identificator == identificator))
             return result.scalars().first()
         except NoResultFound:
             return None

@@ -13,6 +13,10 @@ class RequestStates(StatesGroup):
     MAIN: Final = State()
     INSERT_MESSAGE: Final = State()
 
+class DonateStates(StatesGroup):
+    MAIN: Final = State()
+    INSERT_SUM: Final = State()
+
 class AdministratorStates(StatesGroup):
     MAIN: Final = State()
     SET_INSERT_TELEGRAM_ID: Final = State()

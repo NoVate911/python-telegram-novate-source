@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 
 from app.database.requests.select import channel_all_channel_name_by_need_subscribed as select_channel_all_channel_name_by_need_subscribed
 from app.misc.filters import IsRegistered, NotRegistered, IsSubscribedToChannels, NotSubscribedToChannels
-from app.misc.keyboards import main as main_kb, help as help_kb, referral as referral_kb, request as request_kb, administrator as administrator_kb, channel as channel_kb
+from app.misc.keyboards import main as main_kb, help as help_kb, referral as referral_kb, request as request_kb, donate as donate_kb, administrator as administrator_kb, channel as channel_kb
 from app.misc.translations import translations, user_language as get_user_language
 
 
@@ -39,6 +39,8 @@ async def cmd_unknown(msg: Message, state: FSMContext) -> None:
                 keyboard = await referral_kb(msg=msg)
             case 'RequestStates':
                 keyboard = await request_kb(msg=msg)
+            case 'DonateStates':
+                keyboard = await donate_kb(msg=msg)
             case 'AdministratorStates':
                 keyboard = await administrator_kb(msg=msg)
             case 'ChannelStates':

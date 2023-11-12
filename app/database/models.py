@@ -24,3 +24,12 @@ class Channel(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     channel_name: Mapped[str] = mapped_column(String(32), nullable=False)
     need_subscribed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+
+class Donate(Base):
+    __tablename__ = 'donate'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    identificator: Mapped[str] = mapped_column(String(32), nullable=False)
+    telegram_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    sum: Mapped[int] = mapped_column(Integer, nullable=False)
+    status: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)

@@ -4,6 +4,7 @@ from app.handlers.user.start import router as start_router
 from app.handlers.user.help import router as help_router
 from app.handlers.user.referral import router as referral_router
 from app.handlers.user.request import router as request_router
+from app.handlers.user.donate import router as donate_router
 
 
 def init(dp: Dispatcher) -> None:
@@ -12,6 +13,7 @@ def init(dp: Dispatcher) -> None:
         help_router,
         referral_router,
         request_router,
+        donate_router,
     )
 
     for router in routers:

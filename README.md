@@ -50,8 +50,8 @@
   - [x] Help section
     - [x] Information about the bot
     - [x] Rules for using the bot
-  - [ ] Donations
-    - [ ] Statistics
+  - [x] Donations
+    - [x] Statistics
   - [x] Technical support
     - [x] Sending a request
   - [x] Section for Administration
@@ -107,11 +107,35 @@
   <br/>
 
   ```
-  After installing the dependencies, go to "config.py " and we change the values that are there to our own
+  After installing the libraries, we write "payments.bat" and select the "TOKEN" item
   ```
 
   <br/>
-  
+
+  ```
+  Register the application on the YooMoney website and enter the Client ID, and after Redirect URI
+  ```
+
+  <br/>
+
+  ```
+  Click on the link that was transferred to the console and get a link to the token, which we insert again into the console
+  ```
+
+  <br/>
+
+  ```
+  After receiving the token, we reopen "payments.bat" and select the item "RECEIVER ID" and enter the received token
+  ```
+
+  <br/>
+
+  ```
+  Opening "config.py " and we enter our values
+  ```
+
+  <br/>
+
   ```
   After setting up, run the "start.bat" file and wait for the bot to start
   ```
@@ -151,8 +175,8 @@
   - [x] Раздел помощи
     - [x] Информация о боте
     - [x] Правила пользования ботом
-  - [ ] Пожертвования
-    - [ ] Статистика
+  - [x] Пожертвования
+    - [x] Статистика
   - [x] Техническая поддержка
     - [x] Отправка запроса
   - [x] Раздел для Администрации
@@ -208,7 +232,31 @@
   <br/>
 
   ```
-  После установки зависимостей, заходим в "config.py" и изменяем значения, которые там есть на свои
+  После установки библиотек, пишем "payments.bat" и выбираем пункт "TOKEN"
+  ```
+
+  <br/>
+
+  ```
+  Регистрируем приложение на сайте YooMoney и вводим Client ID, а после Redirect URI
+  ```
+
+  <br/>
+
+  ```
+  Переходим по ссылке, которая вывелась в консоль и получаем ссылку на токен, которую вставляем вновь в консоль
+  ```
+
+  <br/>
+
+  ```
+  После получения токена, вновь открываем "payments.bat" и выбираем пункт "RECEIVER ID" и вводим полученный токен
+  ```
+
+  <br/>
+
+  ```
+  Открываем "config.py" и вводим свои значения
   ```
 
   <br/>

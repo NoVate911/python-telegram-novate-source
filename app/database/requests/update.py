@@ -1,7 +1,7 @@
 from sqlalchemy import update
 
 from app.database.init import async_session
-from app.database.models import User, Channel
+from app.database.models import User, Channel, Donate
 
 
 async def user_language_code_by_telegram_id(telegram_id: int, language_code: str) -> bool:
@@ -38,6 +38,16 @@ async def channel_need_subscribed_by_channel_name(channel_name: str, need_subscr
     async with async_session() as session:
         try:
             await session.execute(update(Channel).where(Channel.channel_name == channel_name).values({Channel.need_subscribed: need_subscribed}))
+            await session.commit()
+            return True
+        except Exception:
+            await session.rollback()
+            return False
+        
+async def donate_status_by_identificator(identificator: int, status: bool) -> bool:
+    async with async_session() as session:
+        try:
+            await session.execute(update(Donate).where(Donate.identificator == identificator).values({Donate.status: status}))
             await session.commit()
             return True
         except Exception:

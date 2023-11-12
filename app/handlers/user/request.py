@@ -55,7 +55,7 @@ async def cmd_request_create(msg: Message, state: FSMContext) -> None:
 
 for language in languages:
     @router.message(StateFilter(RequestStates.MAIN), IsSubscribedToChannels(), IsRegistered(), NotAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['user']['request']['back'].lower())
-    async def cmd_request_exit(msg: Message, state: FSMContext) -> None:
+    async def cmd_request_back(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.clear()
         await msg.reply(text=translations[user_language]['messages']['user']['request']['back'], reply_markup=await main_kb(msg=msg))
