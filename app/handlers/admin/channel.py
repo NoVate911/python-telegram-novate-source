@@ -18,7 +18,7 @@ from app.misc.translations import languages, translations, user_language as get_
 router: Router = Router()
 
 
-@router.message(StateFilter(ChannelStates.ADD_INSERT_TELEGRAM_ID, ChannelStates.REMOVE_INSERT_TELEGRAM_ID, ChannelStates.CHANGE_NEED_SUBSCRIBED_INSERT_TELEGRAM_ID), IsSubscribedToChannels(), IsRegistered(), IsAdministrator(), Command(commands=['cancel']))
+@router.message(StateFilter(ChannelStates.ADD_INSERT_TELEGRAM_ID, ChannelStates.REMOVE_INSERT_TELEGRAM_ID, ChannelStates.CHANGE_NEED_SUBSCRIBED_INSERT_TELEGRAM_ID), Command(commands=['cancel']))
 async def cmd_channel_cancel(msg: Message, state: FSMContext) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     await state.set_state(ChannelStates.MAIN)
@@ -32,13 +32,13 @@ for language in languages:
         await msg.reply(text=translations[user_language]['messages']['admin']['channel']['main'], reply_markup=await channel_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(ChannelStates.MAIN), IsSubscribedToChannels(), IsRegistered(), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['channel']['add'].lower())
+    @router.message(StateFilter(ChannelStates.MAIN), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['channel']['add'].lower())
     async def cmd_channel_add_insert_channel_name(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.set_state(state=ChannelStates.ADD_INSERT_TELEGRAM_ID)
         await msg.reply(text=translations[user_language]['messages']['admin']['channel']['add']['channel_name'], reply_markup=ReplyKeyboardRemove())
 
-@router.message(StateFilter(ChannelStates.ADD_INSERT_TELEGRAM_ID), IsSubscribedToChannels(), IsRegistered(), IsAdministrator())
+@router.message(StateFilter(ChannelStates.ADD_INSERT_TELEGRAM_ID), IsAdministrator())
 async def cmd_channel_add(msg: Message, state: FSMContext) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     max_length: int = 32
@@ -59,13 +59,13 @@ async def cmd_channel_add(msg: Message, state: FSMContext) -> None:
     await msg.answer(text=translations[user_language]['messages']['admin']['channel']['add']['channel_name'])
 
 for language in languages:
-    @router.message(StateFilter(ChannelStates.MAIN), IsSubscribedToChannels(), IsRegistered(), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['channel']['remove'].lower())
+    @router.message(StateFilter(ChannelStates.MAIN), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['channel']['remove'].lower())
     async def cmd_channel_remove_insert_channel_name(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.set_state(state=ChannelStates.REMOVE_INSERT_TELEGRAM_ID)
         await msg.reply(text=translations[user_language]['messages']['admin']['channel']['remove']['channel_name'], reply_markup=ReplyKeyboardRemove())
 
-@router.message(StateFilter(ChannelStates.REMOVE_INSERT_TELEGRAM_ID), IsSubscribedToChannels(), IsRegistered(), IsAdministrator())
+@router.message(StateFilter(ChannelStates.REMOVE_INSERT_TELEGRAM_ID), IsAdministrator())
 async def cmd_channel_remove(msg: Message, state: FSMContext) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     max_length: int = 32
@@ -86,13 +86,13 @@ async def cmd_channel_remove(msg: Message, state: FSMContext) -> None:
     await msg.answer(text=translations[user_language]['messages']['admin']['channel']['remove']['channel_name'])
 
 for language in languages:
-    @router.message(StateFilter(ChannelStates.MAIN), IsSubscribedToChannels(), IsRegistered(), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['channel']['change_need_subscribed'].lower())
+    @router.message(StateFilter(ChannelStates.MAIN), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['channel']['change_need_subscribed'].lower())
     async def cmd_channel_change_need_subscribed_insert_channel_name(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.set_state(state=ChannelStates.CHANGE_NEED_SUBSCRIBED_INSERT_TELEGRAM_ID)
         await msg.reply(text=translations[user_language]['messages']['admin']['channel']['change_need_subscribed']['channel_name'], reply_markup=ReplyKeyboardRemove())
 
-@router.message(StateFilter(ChannelStates.CHANGE_NEED_SUBSCRIBED_INSERT_TELEGRAM_ID), IsSubscribedToChannels(), IsRegistered(), IsAdministrator())
+@router.message(StateFilter(ChannelStates.CHANGE_NEED_SUBSCRIBED_INSERT_TELEGRAM_ID), IsAdministrator())
 async def cmd_channel_change_need_subscribed(msg: Message, state: FSMContext) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     max_length: int = 32
@@ -113,7 +113,7 @@ async def cmd_channel_change_need_subscribed(msg: Message, state: FSMContext) ->
     await msg.answer(text=translations[user_language]['messages']['admin']['channel']['change_need_subscribed']['channel_name'])
 
 for language in languages:
-    @router.message(StateFilter(ChannelStates.MAIN), IsSubscribedToChannels(), IsRegistered(), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['channel']['list'].lower())
+    @router.message(StateFilter(ChannelStates.MAIN), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['channel']['list'].lower())
     async def cmd_channel_list(msg: Message) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         channel_all_channel_name: list[tuple[str]] = await select_channel_all_channel_name()
@@ -125,7 +125,7 @@ for language in languages:
         await msg.reply(text=str.format(translations[user_language]['messages']['admin']['channel']['list'], all_channels), reply_markup=await channel_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(ChannelStates.MAIN), IsSubscribedToChannels(), IsRegistered(), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['channel']['back'].lower())
+    @router.message(StateFilter(ChannelStates.MAIN), F.text.lower() == translations[language]['keyboards']['reply']['admin']['channel']['back'].lower())
     async def cmd_channel_back(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.clear()

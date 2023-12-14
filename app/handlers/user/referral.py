@@ -22,7 +22,7 @@ for language in languages:
         await msg.reply(text=translations[user_language]['messages']['user']['referral']['main'], reply_markup=await referral_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(ReferralStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['referral']['personal_statistics'].lower())
+    @router.message(StateFilter(ReferralStates.MAIN), F.text.lower() == translations[language]['keyboards']['reply']['user']['referral']['personal_statistics'].lower())
     async def cmd_referral_personal_statistics(msg: Message) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         referral_users_telegram_id: list[tuple[int]] = await select_user_all_telegram_id_by_referral_id(referral_id=msg.from_user.id)
@@ -31,7 +31,7 @@ for language in languages:
         await msg.reply(text=str.format(translations[user_language]['messages']['user']['referral']['personal_statistics'], len(referral_users_telegram_id), referrer_user.username, referral_link), reply_markup=await referral_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(ReferralStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['referral']['back'].lower())
+    @router.message(StateFilter(ReferralStates.MAIN), F.text.lower() == translations[language]['keyboards']['reply']['user']['referral']['back'].lower())
     async def cmd_referral_back(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.clear()

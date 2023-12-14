@@ -21,12 +21,12 @@ async def cmd_need_subscribed_to_channels(msg: Message) -> None:
     all_need_subscribed_to_channels: str = "".join(need_subscribed_to_channels_dict)
     await msg.reply(text=str.format(translations[user_language]['messages']['need_subscribed_to_channels'], all_need_subscribed_to_channels))
 
-@router.message(IsSubscribedToChannels(), NotRegistered())
+@router.message(NotRegistered())
 async def cmd_need_registered(msg: Message) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     await msg.reply(text=translations[user_language]['messages']['need_registered'])
 
-@router.message(IsSubscribedToChannels(), IsRegistered())
+@router.message(IsRegistered())
 async def cmd_unknown(msg: Message, state: FSMContext) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     current_state: FSMContext = await state.get_state()

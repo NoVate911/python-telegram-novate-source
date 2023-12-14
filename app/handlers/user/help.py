@@ -1,5 +1,5 @@
 from aiogram import Router, F
-from aiogram.types import Message
+from aiogram.types import Message, User
 from aiogram.fsm.context import FSMContext
 from aiogram.filters import StateFilter
 
@@ -20,19 +20,20 @@ for language in languages:
         await msg.reply(text=translations[user_language]['messages']['user']['help']['main'], reply_markup=await help_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(HelpStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['help']['information_bot'].lower())
+    @router.message(StateFilter(HelpStates.MAIN), F.text.lower() == translations[language]['keyboards']['reply']['user']['help']['information_bot'].lower())
     async def cmd_help_information_bot(msg: Message) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
-        await msg.reply(text=translations[user_language]['messages']['user']['help']['information_bot'], reply_markup=await help_kb(msg=msg))
+        bot: User = msg.bot.get_me()
+        await msg.reply(text=str.format(translations[user_language]['messages']['user']['help']['information_bot'], bot.username, "novatesource", translations[user_language]['keyboards']['reply']['user']['request']['main']), reply_markup=await help_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(HelpStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['help']['rules_use_bot'].lower())
+    @router.message(StateFilter(HelpStates.MAIN), F.text.lower() == translations[language]['keyboards']['reply']['user']['help']['rules_use_bot'].lower())
     async def cmd_help_rules_use_bot(msg: Message) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
-        await msg.reply(text=translations[user_language]['messages']['user']['help']['rules_use_bot'], reply_markup=await help_kb(msg=msg))
+        await msg.reply(text=str.format(translations[user_language]['messages']['user']['help']['rules_use_bot'], translations[user_language]['keyboards']['reply']['user']['request']['main']), reply_markup=await help_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(HelpStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['help']['back'].lower())
+    @router.message(StateFilter(HelpStates.MAIN), F.text.lower() == translations[language]['keyboards']['reply']['user']['help']['back'].lower())
     async def cmd_help_back(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.clear()

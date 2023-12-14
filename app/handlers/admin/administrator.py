@@ -15,7 +15,7 @@ from app.misc.translations import languages, translations, user_language as get_
 router: Router = Router()
 
 
-@router.message(StateFilter(AdministratorStates.SET_INSERT_TELEGRAM_ID, AdministratorStates.UNSET_INSERT_TELEGRAM_ID), IsSubscribedToChannels(), IsRegistered(), IsAdministrator(), Command(commands=['cancel']))
+@router.message(StateFilter(AdministratorStates.SET_INSERT_TELEGRAM_ID, AdministratorStates.UNSET_INSERT_TELEGRAM_ID), Command(commands=['cancel']))
 async def cmd_administrator_cancel(msg: Message, state: FSMContext) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     await state.set_state(AdministratorStates.MAIN)
@@ -29,13 +29,13 @@ for language in languages:
         await msg.reply(text=translations[user_language]['messages']['admin']['administrator']['main'], reply_markup=await administrator_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(AdministratorStates.MAIN), IsSubscribedToChannels(), IsRegistered(), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['administrator']['set'].lower())
+    @router.message(StateFilter(AdministratorStates.MAIN), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['administrator']['set'].lower())
     async def cmd_administrator_set_insert_telegram_id(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.set_state(state=AdministratorStates.SET_INSERT_TELEGRAM_ID)
         await msg.reply(text=translations[user_language]['messages']['admin']['administrator']['set']['telegram_id'], reply_markup=ReplyKeyboardRemove())
 
-@router.message(StateFilter(AdministratorStates.SET_INSERT_TELEGRAM_ID), IsSubscribedToChannels(), IsRegistered(), IsAdministrator())
+@router.message(StateFilter(AdministratorStates.SET_INSERT_TELEGRAM_ID), IsAdministrator())
 async def cmd_administrator_set(msg: Message, state: FSMContext) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     if not msg.text.isdigit() or int(msg.text) == msg.from_user.id or not await select_user_by_telegram_id(telegram_id=msg.text) or await select_user_administrator_by_telegram_id(telegram_id=msg.text):
@@ -48,13 +48,13 @@ async def cmd_administrator_set(msg: Message, state: FSMContext) -> None:
         await msg.reply(text=str.format(translations[user_language]['messages']['admin']['administrator']['set']['success'], user.username, msg.text), reply_markup=await administrator_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(AdministratorStates.MAIN), IsSubscribedToChannels(), IsRegistered(), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['administrator']['unset'].lower())
+    @router.message(StateFilter(AdministratorStates.MAIN), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['administrator']['unset'].lower())
     async def cmd_administrator_unset_insert_telegram_id(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.set_state(state=AdministratorStates.UNSET_INSERT_TELEGRAM_ID)
         await msg.reply(text=translations[user_language]['messages']['admin']['administrator']['unset']['telegram_id'], reply_markup=ReplyKeyboardRemove())
 
-@router.message(StateFilter(AdministratorStates.UNSET_INSERT_TELEGRAM_ID), IsSubscribedToChannels(), IsRegistered(), IsAdministrator())
+@router.message(StateFilter(AdministratorStates.UNSET_INSERT_TELEGRAM_ID), IsAdministrator())
 async def cmd_administrator_unset(msg: Message, state: FSMContext) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     if not msg.text.isdigit() or int(msg.text) == msg.from_user.id or int(msg.text) == OWNER_TELEGRAM_ID or not await select_user_by_telegram_id(telegram_id=msg.text) or not await select_user_administrator_by_telegram_id(telegram_id=msg.text):
@@ -67,7 +67,7 @@ async def cmd_administrator_unset(msg: Message, state: FSMContext) -> None:
         await msg.reply(text=str.format(translations[user_language]['messages']['admin']['administrator']['unset']['success'], user.username, msg.text), reply_markup=await administrator_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(AdministratorStates.MAIN), IsSubscribedToChannels(), IsRegistered(), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['administrator']['list'].lower())
+    @router.message(StateFilter(AdministratorStates.MAIN), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['administrator']['list'].lower())
     async def cmd_administrator_list(msg: Message) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         user_all_telegram_id: list[tuple[int]] = await select_user_all_telegram_id()
@@ -80,7 +80,7 @@ for language in languages:
         await msg.reply(text=str.format(translations[user_language]['messages']['admin']['administrator']['list'], user_all), reply_markup=await administrator_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(AdministratorStates.MAIN), IsSubscribedToChannels(), IsRegistered(), IsAdministrator(), F.text.lower() == translations[language]['keyboards']['reply']['admin']['administrator']['back'].lower())
+    @router.message(StateFilter(AdministratorStates.MAIN), F.text.lower() == translations[language]['keyboards']['reply']['admin']['administrator']['back'].lower())
     async def cmd_administrator_back(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.clear()

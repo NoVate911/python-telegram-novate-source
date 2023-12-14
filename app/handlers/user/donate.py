@@ -27,13 +27,13 @@ for language in languages:
         await msg.reply(text=translations[user_language]['messages']['user']['donate']['main'], reply_markup=await donate_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(DonateStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['donate']['get_link'].lower())
+    @router.message(StateFilter(DonateStates.MAIN), F.text.lower() == translations[language]['keyboards']['reply']['user']['donate']['get_link'].lower())
     async def cmd_donate_get_link_insert_sum(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.set_state(state=DonateStates.INSERT_SUM)
         await msg.reply(text=translations[user_language]['messages']['user']['donate']['get_link']['insert_sum'], reply_markup=ReplyKeyboardRemove())
 
-@router.message(StateFilter(DonateStates.INSERT_SUM), IsSubscribedToChannels(), IsRegistered())
+@router.message(StateFilter(DonateStates.INSERT_SUM))
 async def cmd_donate_get_link(msg: Message, state: FSMContext) -> None:
     user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     min_sum: int = 1
@@ -48,7 +48,7 @@ async def cmd_donate_get_link(msg: Message, state: FSMContext) -> None:
         await msg.reply(text=str.format(translations[user_language]['messages']['user']['donate']['get_link']['success'], await select_donate_id_by_identificator(identificator=quickpay.label), quickpay.redirected_url), reply_markup=await donate_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(DonateStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['donate']['personal_statistics'].lower())
+    @router.message(StateFilter(DonateStates.MAIN), F.text.lower() == translations[language]['keyboards']['reply']['user']['donate']['personal_statistics'].lower())
     async def cmd_donate_personal_statistics(msg: Message) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         donate_all_identificator: list[tuple[str]] = await select_donate_all_identificator()
@@ -63,7 +63,7 @@ for language in languages:
         await msg.reply(text=str.format(translations[user_language]['messages']['user']['donate']['personal_statistics'], donate_sum_passed_identification + donate_sum_awaiting_identification, donate_sum_passed_identification, donate_sum_awaiting_identification), reply_markup=await donate_kb(msg=msg))
 
 for language in languages:
-    @router.message(StateFilter(DonateStates.MAIN), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['donate']['back'].lower())
+    @router.message(StateFilter(DonateStates.MAIN), F.text.lower() == translations[language]['keyboards']['reply']['user']['donate']['back'].lower())
     async def cmd_donate_back(msg: Message, state: FSMContext) -> None:
         user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
         await state.clear()
