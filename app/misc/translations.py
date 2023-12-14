@@ -30,9 +30,9 @@ translations: str = {
                     'main': "☺️ Я с радостью подскажу то, что требуется.\n"\
                         "👇 Выберите нужный пункт ниже.",
                     'information_bot': "🤖 @{0} - бот-помощник, который создан специально для канала @{1}.\n"\
-                        "👀 Если у Вас появились какие-либо предложения или вопросы - присылайте их в \"{2}\".\n\n"\
+                        "👀 Если у Вас появились какие-либо предложения или вопросы - присылайте их в <b>\"{2}\"</b>.\n\n"\
                         "📌 Мы стараемся помочь каждому, поэтому, когда Вы будете задавать вопрос, то сформулируйте его правильно и корректно.",
-                    'rules_use_bot': "📌 Достаточно адекватно относиться к разделу \"{0}\" и создавать адекватные запросы.",
+                    'rules_use_bot': "📌 Достаточно адекватно относиться к разделу <b>\"{0}\"</b> и создавать адекватные запросы.",
                     'back': "✅ Вы вернулись с раздела помощи.",
                 },
                 'referral': {
@@ -194,9 +194,9 @@ translations: str = {
                     'main': "☺️ I will gladly tell you what is required.\n"\
                         "👇 Select the desired point below.",
                     'information_bot': "🤖 @{0} - helper, which was created specifically for the channel @{1}.\n"\
-                        "👀 If you have any suggestions or questions, send them to \"{2}\".\n\n"\
+                        "👀 If you have any suggestions or questions, send them to <b>\"{2}\"</b>.\n\n"\
                         "📌 We try to help everyone, therefore, when you ask a question, then formulate it correctly and correctly.",
-                    'rules_use_bot': "📌 It is quite adequate to the section \"{0}\" and create adequate requests.",
+                    'rules_use_bot': "📌 It is quite adequate to the section <b>\"{0}\"</b> and create adequate requests.",
                     'back': "✅ You returned from the section of help.",
                 },
                 'referral': {
