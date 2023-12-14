@@ -89,13 +89,13 @@
   <sup>Via Terminal or PowerShell</sup>
 
   ```
-  git clone https://github.com/NoVate911/python-telegram-novate-source.git
+  git clone https://github.com/NoVate911/python-telegram-novatesource.git
   ```
 
   <br/>
 
   ```
-  cd python-telegram-novate-source
+  cd python-telegram-novatesource
   ```
 
   <br/>
@@ -131,7 +131,7 @@
   <br/>
 
   ```
-  Opening "config.py " and we enter our values
+  Opening "config.py" and we enter our values
   ```
 
   <br/>
@@ -214,13 +214,13 @@
   <sup>Через Terminal или PowerShell</sup>
 
   ```
-  git clone https://github.com/NoVate911/python-telegram-novate-source.git
+  git clone https://github.com/NoVate911/python-telegram-novatesource.git
   ```
 
   <br/>
 
   ```
-  cd python-telegram-novate-source
+  cd python-telegram-novatesource
   ```
 
   <br/>
