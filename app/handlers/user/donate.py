@@ -5,7 +5,7 @@ from yoomoney import Quickpay
 from aiogram import Router, F
 from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
-from aiogram.filters import StateFilter
+from aiogram.filters import StateFilter, Command
 
 from config import PAYMENTS_SETTINGS
 from app.database.requests.insert import donate_by_telegram_id as insert_donate_by_telegram_id
@@ -18,6 +18,12 @@ from app.misc.translations import languages, translations, user_language as get_
 
 router: Router = Router()
 
+
+@router.message(StateFilter(DonateStates.INSERT_SUM), Command(commands=['cancel']))
+async def cmd_donate_cancel(msg: Message, state: FSMContext) -> None:
+    user_language: str = await get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
+    await state.set_state(state=DonateStates.MAIN)
+    await msg.reply(text=translations[user_language]['messages']['user']['donate']['get_link']['cancel'], reply_markup=await donate_kb(msg=msg))
 
 for language in languages:
     @router.message(StateFilter(None), IsSubscribedToChannels(), IsRegistered(), F.text.lower() == translations[language]['keyboards']['reply']['user']['donate']['main'].lower())
